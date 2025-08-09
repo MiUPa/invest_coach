@@ -17,72 +17,12 @@ async function* mockGenerate(messages: ChatMessage[]): AsyncGenerator<string> {
 }
 
 export async function* generateStreaming(messages: ChatMessage[]): AsyncGenerator<string> {
-  const model = useSettingsStore.getState().model;
-  // 将来: modelに応じてWebLLMやtransformers.jsに切替
-  if (model === "tfjs-tinyllama") {
-    yield* tinyLlamaGenerate(messages);
-    return;
-  }
-  if (model === "tfjs-qwen05") {
-    yield* qwen05Generate(messages);
-    return;
-  }
-  if (model === "tfjs-gpt2") {
-    yield* gpt2Generate(messages);
-    return;
-  }
-  if (model === "api") {
-    yield* apiGenerate(messages);
-    return;
-  }
-  if (model === "gemini") {
-    yield* geminiGenerate(messages);
-    return;
-  }
-  yield* mockGenerate(messages);
+  yield* geminiGenerate(messages);
 }
 
-let tinyLlamaLoader: Promise<any> | null = null;
-async function getTinyLlama() {
-  if (!tinyLlamaLoader) {
-    tinyLlamaLoader = (async () => {
-      const { pipeline, env } = await import("@xenova/transformers");
-      // onnxruntime-web の wasm をCDNから取得（GH Pages の base 配下ではなく外部）
-      // バージョンは依存に合わせて更新
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends = (env as any).backends || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends.onnx = (env as any).backends.onnx || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends.onnx.wasm = (env as any).backends.onnx.wasm || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      // transformers.js v2.17 は onnxruntime-web 1.14 系に依存
-      // バージョンを合わせた CDN を指定（キャッシュ対策で固定）
-      (env as any).backends.onnx.wasm.wasmPaths = "https://unpkg.com/onnxruntime-web@1.14.0/dist/";
-      // 互換性重視の設定（SharedArrayBuffer 不要化）。重ければ後で戻す
-      (env as any).backends.onnx.wasm.numThreads = 1;
-      (env as any).backends.onnx.wasm.proxy = false; // WebWorker を使わずメインスレッドで実行
-      (env as any).backends.onnx.wasm.simd = false; // Safari 等での互換性優先
-
-      const progress_callback = (data: unknown) => {
-        console.log("[transformers.js]", data);
-      };
-      // 量子化モデルを自動ダウンロード。初回のみ時間がかかる
-      const generator = await pipeline(
-        "text-generation",
-        "Xenova/TinyLlama-1.1B-Chat-v1.0",
-        ({
-          // Transformers.js v2 系は dtype で量子化指定（型未反映のため any）
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          dtype: "q4" as any,
-          progress_callback,
-        } as any)
-      );
-      return generator;
-    })();
-  }
-  return tinyLlamaLoader;
-}
+// 以下は将来の拡張用（未使用）。残骸を保持
+// ダミー関数（ビルドのため残置）
+async function getTinyLlama() { throw new Error("unused"); }
 
 async function* tinyLlamaGenerate(messages: ChatMessage[]): AsyncGenerator<string> {
   const s = useSettingsStore.getState();
@@ -143,42 +83,7 @@ async function* tinyLlamaGenerate(messages: ChatMessage[]): AsyncGenerator<strin
   }
 }
 
-let qwenLoader: Promise<any> | null = null;
-async function getQwen05() {
-  if (!qwenLoader) {
-    qwenLoader = (async () => {
-      const { pipeline, env } = await import("@xenova/transformers");
-      // onnx wasm パスの設定（TinyLlamaと共有）
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends = (env as any).backends || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends.onnx = (env as any).backends.onnx || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends.onnx.wasm = (env as any).backends.onnx.wasm || {};
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      (env as any).backends.onnx.wasm.wasmPaths = "https://unpkg.com/onnxruntime-web@1.14.0/dist/";
-      // 互換性重視
-      (env as any).backends.onnx.wasm.numThreads = 1;
-      (env as any).backends.onnx.wasm.proxy = false;
-      (env as any).backends.onnx.wasm.simd = false;
-      const progress_callback = (data: unknown) => console.log("[transformers.js]", data);
-      const generator = await pipeline(
-        "text-generation",
-        // ONNX 変換済み（コミュニティ）
-        // 0.5B instruct は model id やファイル名が頻繁に更新されるため、
-        // 破損時は TinyLlama をデフォルトにフォールバックする
-        "onnx-community/Qwen2-0.5B-Instruct",
-        ({
-          // eslint-disable-next-line @typescript-eslint/no-explicit-any
-          dtype: "q4" as any,
-          progress_callback,
-        } as any)
-      );
-      return generator;
-    })();
-  }
-  return qwenLoader;
-}
+async function getQwen05() { throw new Error("unused"); }
 
 async function* qwen05Generate(messages: ChatMessage[]): AsyncGenerator<string> {
   const s = useSettingsStore.getState();

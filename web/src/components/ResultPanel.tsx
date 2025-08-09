@@ -3,7 +3,7 @@ import { useDebateStore } from "@/store/debate";
 export function ResultPanel() {
   const final = useDebateStore((s) => s.finalDecision);
   return (
-    <div className="border rounded-md p-4 h-[60vh] flex flex-col">
+    <div className="border rounded-xl p-4 h-[60vh] flex flex-col bg-white/80 shadow">
       <h2 className="font-medium mb-2">結論</h2>
       {final ? (
         <div className="text-sm space-y-2">
@@ -28,7 +28,7 @@ export function ResultPanel() {
           <details className="mt-2">
             <summary className="cursor-pointer">JSON</summary>
             <pre className="text-xs overflow-auto bg-black/5 p-2 rounded">
-{JSON.stringify(final, null, 2)}
+{`${JSON.stringify(final, null, 2)}`}
             </pre>
           </details>
         </div>

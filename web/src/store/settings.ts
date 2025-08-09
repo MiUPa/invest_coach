@@ -2,7 +2,7 @@ import { create } from "zustand";
 
 const GEMINI_KEY = (import.meta as any).env?.VITE_GEMINI_API_KEY ?? "";
 const GEMINI_MODEL = (import.meta as any).env?.VITE_GEMINI_MODEL ?? "gemini-1.5-flash";
-const DEFAULT_MODEL = GEMINI_KEY ? "gemini" : "tfjs-gpt2";
+const DEFAULT_MODEL = "gemini";
 
 type SettingsState = {
   rounds: number;
@@ -42,7 +42,7 @@ export const useSettingsStore = create<SettingsState>((set) => ({
   setApiEndpoint: (v) => set({ apiEndpoint: v }),
   setApiKey: (v) => set({ apiKey: v }),
   setApiModel: (v) => set({ apiModel: v }),
-  setGeminiKey: (v) => set({ geminiKey: v }),
+  setGeminiKey: (v) => set((state) => ({ geminiKey: v, model: v ? "gemini" : state.model })),
   setGeminiModel: (v) => set({ geminiModel: v }),
 }));
 

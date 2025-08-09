@@ -4,7 +4,7 @@ export function SettingsDrawer() {
   const s = useSettingsStore();
   return (
     <div className="fixed bottom-4 right-4">
-      <details className="border rounded-md bg-white/5">
+      <details className="border rounded-xl bg-white/90 shadow">
         <summary className="px-3 py-1.5 cursor-pointer select-none">設定</summary>
         <div className="p-3 space-y-2 text-sm">
           <div className="flex items-center gap-2">
@@ -44,19 +44,7 @@ export function SettingsDrawer() {
           </div>
           <div className="flex items-center gap-2">
             <label className="w-36 text-neutral-600">モデル</label>
-            <select
-              value={s.model}
-              onChange={(e) => s.setModel(e.target.value)}
-              className="border rounded px-2 py-1 bg-transparent"
-            >
-              <option value="mock">Mock</option>
-              <option value="tfjs-tinyllama">Transformers.js TinyLlama 1.1B（安定）</option>
-              <option value="tfjs-qwen05">Transformers.js Qwen2 0.5B Instruct（実験的）</option>
-              <option value="tfjs-gpt2">Transformers.js GPT-2（互換性重視・軽量）</option>
-              <option value="api">外部API（無料枠/キー入力）</option>
-              <option value="gemini">Gemini（無料）</option>
-              <option value="webllm-qwen15" disabled>WebLLM Qwen 1.5B（後日）</option>
-            </select>
+            <input value="Gemini（固定）" readOnly className="border rounded px-2 py-1 bg-transparent" />
           </div>
           {s.model === "api" && (
             <div className="space-y-2">
@@ -89,7 +77,7 @@ export function SettingsDrawer() {
               </div>
             </div>
           )}
-          {s.model === "gemini" && (
+          {true && (
             <div className="space-y-2">
               <div className="flex items-center gap-2">
                 <label className="w-36 text-neutral-600">Gemini APIキー</label>

@@ -11,13 +11,13 @@ export const agentMacro = `
 あなたはマクロ・リスク管理志向。金利・景気・規制・地政学・ボラティリティの観点から評価する。`;
 
 export const judgePrompt = `
-全発言を踏まえ、最も有望な1銘柄のみをJSONで出力してください。フォーマット:
+全発言と投資プロファイル（投資金額/期間/リスク許容度/ユニバース）を踏まえ、ユニバース内の銘柄から投資先を1社だけ選んでください。候補集合は「S&P500構成銘柄」「NASDAQ100構成銘柄」「日経225構成銘柄」「世界の主要上場企業（代表的な大型株）」などとして与えられます。必ず次のJSONのみを出力します:
 {
-  "selected": "",
-  "rationale": "",
-  "risks": [],
-  "assumptions": [],
-  "time_horizon": "12-24m"
+  "selected": "TICKER",  // 例: AAPL
+  "rationale": "選定理由（200-400字）",
+  "risks": ["主要リスク1", "主要リスク2"],
+  "assumptions": ["重要な仮定1", "重要な仮定2"],
+  "time_horizon": "short|mid|long"
 }
 `;
 
