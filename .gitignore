@@ -1,0 +1,46 @@
+# OS / Editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
+*.swp
+
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Node modules
+**/node_modules/
+
+# Build artifacts
+**/dist/
+**/build/
+**/.vite/
+**/.cache/
+
+# Test coverage
+coverage/
+*.lcov
+
+# Environment files (keep examples)
+.env
+.env.*
+!.env.example
+web/.env
+web/.env.*
+!web/.env.example
+
+# Local helper scripts that may contain secrets
+set-*-env.sh
+web/set-*-env.sh
+
+# Tool caches
+.hf_cache/
+**/.hf_cache/
+**/.cache/
+
+
