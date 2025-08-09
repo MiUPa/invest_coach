@@ -24,12 +24,12 @@ export function StatusForm({ value, onChange }: Props) {
               min={1}
               value={value.amount}
               onChange={(e) => set({ amount: Number(e.target.value) || 0 })}
-              className="w-full border rounded-lg px-3 py-2 bg-black/20"
+              className="w-full border rounded-lg px-3 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
             />
             <select
               value={value.currency}
               onChange={(e) => set({ currency: e.target.value as Profile["currency"] })}
-              className="border rounded-lg px-2 py-2 bg-black/20"
+              className="border rounded-lg px-2 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
             >
               <option value="JPY">JPY</option>
               <option value="USD">USD</option>

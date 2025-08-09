@@ -3,7 +3,7 @@ import { useDebateStore } from "@/store/debate";
 export function ResultPanel() {
   const final = useDebateStore((s) => s.finalDecision);
   return (
-    <div className="border rounded-xl p-4 h-[60vh] flex flex-col bg-white/80 shadow">
+    <div className="border rounded-xl p-4 h-[60vh] flex flex-col bg-[color:var(--claude-surface,_#FFFFFF)] shadow">
       <h2 className="font-medium mb-2">結論</h2>
       {final ? (
         <div className="text-sm space-y-2">

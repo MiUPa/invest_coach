@@ -196,8 +196,9 @@ async function* geminiGenerate(messages: ChatMessage[]): AsyncGenerator<string> 
   const s = useSettingsStore.getState();
   const model = s.geminiModel.trim() || "gemini-1.5-flash";
   // プロキシURLが設定されている場合は鍵不要
-  const proxy = (import.meta as any).env?.VITE_GEMINI_PROXY_URL as string | undefined;
-  const useProxy = !!proxy && proxy.length > 0;
+  // Vite: import.meta.env はビルド時に置換される
+  const proxy = import.meta.env.VITE_GEMINI_PROXY_URL || "";
+  const useProxy = proxy.length > 0;
   const apiKey = s.geminiKey.trim();
   if (!useProxy && !apiKey) {
     yield "[Gemini] APIキーを設定するか、プロキシURLを設定してください\n";
@@ -205,7 +206,7 @@ async function* geminiGenerate(messages: ChatMessage[]): AsyncGenerator<string> 
   }
   const prompt = messages.map((m) => `${m.role}: ${m.content}`).join("\n");
   const endpoint = useProxy
-    ? `${proxy.replace(/\/$/, "")}/api/gemini`
+    ? proxy.replace(/\/$/, "")
     : `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
   try {
     const res = await fetch(endpoint, {

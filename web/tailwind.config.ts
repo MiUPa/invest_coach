@@ -5,14 +5,14 @@ export default {
   theme: {
     extend: {
       colors: {
-        brand: {
-          50: "#ecfeff",
-          100: "#cffafe",
-          200: "#a5f3fc",
-          300: "#67e8f9",
-          400: "#22d3ee",
-          500: "#06b6d4",
-          600: "#0891b2",
+        // Claude風の落ち着いた配色
+        claude: {
+          bg: "#F7F7F5",
+          surface: "#FFFFFF",
+          border: "#E7E5E4",
+          text: "#111827",
+          accent: "#6B5CFF", // パープル寄りのアクセント
+          accent2: "#A855F7",
         },
       },
     },

@@ -25,13 +25,13 @@ export function DebatePanel({ tickers, profile }: Props) {
   };
 
   return (
-    <div className="border rounded-xl p-4 h-[60vh] flex flex-col bg-white/80 shadow">
+    <div className="border rounded-xl p-4 h-[60vh] flex flex-col bg-[color:var(--claude-surface,_#FFFFFF)] shadow">
       <div className="flex items-center justify-between mb-2">
-        <h2 className="font-medium">ディベート</h2>
+        <h2 className="font-medium text-[color:var(--claude-text,_#111827)]">ディベート</h2>
         <button
           onClick={handleRun}
           disabled={running}
-          className="px-3 py-1.5 border rounded-md disabled:opacity-50"
+          className="px-3 py-1.5 rounded-md disabled:opacity-50 bg-[color:var(--claude-text,_#111827)] text-white hover:opacity-90"
         >
           {running ? "実行中…" : "開始"}
         </button>

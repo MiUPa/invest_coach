@@ -4,6 +4,6 @@
 
 :root { color-scheme: light; }
 html, body, #root { height: 100%; }
-body { @apply bg-gradient-to-br from-brand-50 to-white text-neutral-800; }
+body { @apply bg-[color:var(--claude-bg,_#F7F7F5)] text-[color:var(--claude-text,_#111827)]; }
 
 

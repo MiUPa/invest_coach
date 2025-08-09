@@ -2,6 +2,8 @@ import { useSettingsStore } from "@/store/settings";
 
 export function SettingsDrawer() {
   const s = useSettingsStore();
+  // デバッグ: 現在のプロキシURLを確認できる枠（本番表示はしない）
+  const proxy = import.meta.env.VITE_GEMINI_PROXY_URL || "";
   return (
     <div className="fixed bottom-4 right-4">
       <details className="border rounded-xl bg-white/90 shadow">
@@ -88,6 +90,11 @@ export function SettingsDrawer() {
                   className="border rounded px-2 py-1 bg-transparent w-[28rem]"
                 />
               </div>
+              {proxy ? (
+                <div className="text-xs text-neutral-500">Proxy: {proxy}</div>
+              ) : (
+                <div className="text-xs text-rose-600">Proxy未設定（.envのVITE_GEMINI_PROXY_URLを確認）</div>
+              )}
               <div className="flex items-center gap-2">
                 <label className="w-36 text-neutral-600">モデル名</label>
                 <input
