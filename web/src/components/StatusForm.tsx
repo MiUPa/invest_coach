@@ -19,18 +19,31 @@ export function StatusForm({ value, onChange }: Props) {
         <div>
           <label className="block text-sm text-neutral-400">投資金額</label>
           <div className="flex items-center gap-2">
-            <input
-              type="number"
-              min={0}
-              step={value.currency === "JPY" ? 10000 : 100}
-              value={value.amount}
-              onChange={(e) => {
-                const raw = Number(e.target.value) || 0;
-                const next = value.currency === "JPY" ? Math.round(raw / 10000) * 10000 : raw;
-                set({ amount: next });
-              }}
-              className="w-full border rounded-lg px-3 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
-            />
+            {value.currency === "JPY" ? (
+              <div className="flex items-center gap-2 w-full">
+                <input
+                  type="number"
+                  min={0}
+                  step={1}
+                  value={Math.round((value.amount || 0) / 10000)}
+                  onChange={(e) => {
+                    const man = Number(e.target.value) || 0;
+                    set({ amount: man * 10000 });
+                  }}
+                  className="w-full border rounded-lg px-3 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
+                />
+                <span className="text-sm text-neutral-600 select-none">万円</span>
+              </div>
+            ) : (
+              <input
+                type="number"
+                min={0}
+                step={100}
+                value={value.amount}
+                onChange={(e) => set({ amount: Number(e.target.value) || 0 })}
+                className="w-full border rounded-lg px-3 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
+              />
+            )}
             <select
               value={value.currency}
               onChange={(e) => set({ currency: e.target.value as Profile["currency"] })}
@@ -41,7 +54,7 @@ export function StatusForm({ value, onChange }: Props) {
             </select>
           </div>
           {value.currency === "JPY" && (
-            <div className="text-xs text-neutral-400 mt-1">JPYは1万円単位で入力されます</div>
+            <div className="text-xs text-neutral-400 mt-1">例）100 → 100万円（= 1,000,000円）</div>
           )}
         </div>
         <div>
