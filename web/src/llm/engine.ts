@@ -194,14 +194,19 @@ async function* apiGenerate(messages: ChatMessage[]): AsyncGenerator<string> {
 
 async function* geminiGenerate(messages: ChatMessage[]): AsyncGenerator<string> {
   const s = useSettingsStore.getState();
-  const apiKey = s.geminiKey.trim();
   const model = s.geminiModel.trim() || "gemini-1.5-flash";
-  if (!apiKey) {
-    yield "[Gemini] APIキーを設定してください\n";
+  // プロキシURLが設定されている場合は鍵不要
+  const proxy = (import.meta as any).env?.VITE_GEMINI_PROXY_URL as string | undefined;
+  const useProxy = !!proxy && proxy.length > 0;
+  const apiKey = s.geminiKey.trim();
+  if (!useProxy && !apiKey) {
+    yield "[Gemini] APIキーを設定するか、プロキシURLを設定してください\n";
     return;
   }
   const prompt = messages.map((m) => `${m.role}: ${m.content}`).join("\n");
-  const endpoint = `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
+  const endpoint = useProxy
+    ? `${proxy.replace(/\/$/, "")}/api/gemini`
+    : `https://generativelanguage.googleapis.com/v1beta/models/${encodeURIComponent(model)}:generateContent?key=${encodeURIComponent(apiKey)}`;
   try {
     const res = await fetch(endpoint, {
       method: "POST",
@@ -218,7 +223,8 @@ async function* geminiGenerate(messages: ChatMessage[]): AsyncGenerator<string> 
         generationConfig: {
           temperature: s.temperature,
           maxOutputTokens: Math.min(512, Math.max(64, s.maxTokens)),
-        }
+        },
+        ...(useProxy ? { model } : {}),
       })
     });
     if (!res.ok) {
