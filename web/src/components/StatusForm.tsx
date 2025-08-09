@@ -21,9 +21,14 @@ export function StatusForm({ value, onChange }: Props) {
           <div className="flex items-center gap-2">
             <input
               type="number"
-              min={1}
+              min={0}
+              step={value.currency === "JPY" ? 10000 : 100}
               value={value.amount}
-              onChange={(e) => set({ amount: Number(e.target.value) || 0 })}
+              onChange={(e) => {
+                const raw = Number(e.target.value) || 0;
+                const next = value.currency === "JPY" ? Math.round(raw / 10000) * 10000 : raw;
+                set({ amount: next });
+              }}
               className="w-full border rounded-lg px-3 py-2 bg-[color:var(--claude-surface,_#FFFFFF)]"
             />
             <select
@@ -35,6 +40,9 @@ export function StatusForm({ value, onChange }: Props) {
               <option value="USD">USD</option>
             </select>
           </div>
+          {value.currency === "JPY" && (
+            <div className="text-xs text-neutral-400 mt-1">JPYは1万円単位で入力されます</div>
+          )}
         </div>
         <div>
           <label className="block text-sm text-neutral-400">投資期間</label>

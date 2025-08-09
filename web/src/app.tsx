@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { DebatePanel } from "./components/DebatePanel";
 import { ResultPanel } from "./components/ResultPanel";
-import { SettingsDrawer } from "./components/SettingsDrawer";
+// import { SettingsDrawer } from "./components/SettingsDrawer";
 import { StatusForm } from "./components/StatusForm";
 
 export function App() {
@@ -21,7 +21,7 @@ export function App() {
           <ResultPanel />
         </section>
       </main>
-      <SettingsDrawer />
+      {false && <div />}
       <footer className="border-t p-4 text-xs text-neutral-500 bg-[color:var(--claude-surface,_#FFFFFF)]">
         本アプリは教育・リサーチ目的の情報提供であり、投資助言ではありません。
       </footer>
