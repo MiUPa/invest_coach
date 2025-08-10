@@ -37,6 +37,8 @@ jobs:
         env:
           VITE_GEMINI_API_KEY: ${{ secrets.VITE_GEMINI_API_KEY }}
           VITE_GEMINI_MODEL: ${{ secrets.VITE_GEMINI_MODEL || 'gemini-1.5-flash' }}
+          VITE_GEMINI_PROXY_URL: ${{ secrets.VITE_GEMINI_PROXY_URL }}
+          VITE_PUBLIC_BASE: /
         run: npm run build
 
       - name: Upload artifact
