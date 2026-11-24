@@ -5,19 +5,19 @@ export default {
   theme: {
     extend: {
       colors: {
-        // Claude風の落ち着いた配色
+        // miupa.jp デザイン仕様（DESIGN.md）準拠の配色
         claude: {
-          bg: "#F7F7F5",
+          bg: "#FAF9F5",
           surface: "#FFFFFF",
-          border: "#E7E5E4",
-          text: "#111827",
-          accent: "#6B5CFF", // パープル寄りのアクセント
-          accent2: "#A855F7",
+          surface2: "#F0EEE6",
+          border: "#E8E4DA",
+          text: "#1F1E1D",
+          muted: "#6B6963",
+          accent: "#D97757",
+          accent2: "#C15F3C",
         },
       },
     },
   },
   plugins: [require("@tailwindcss/typography")],
 } satisfies Config;
-
-
