@@ -1,0 +1,12 @@
+# Invest Coach
+
+> A browser app for stock selection through investor-persona debate. Enter an investment amount, period, and risk tolerance, and multiple investor personas debate and present a conclusion. Runs in the browser.
+
+## Tool
+
+- [Invest Coach](https://invest-coach.miupa.jp/): Debate-style stock selection support app (Japanese UI). Free, no sign-up.
+
+## About
+
+- [MiUPa portfolio](https://miupa.jp/): Other free tools and Chrome extensions by the same developer.
+- [GitHub](https://github.com/MiUPa/invest_coach)

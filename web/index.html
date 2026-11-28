@@ -6,11 +6,56 @@
     <meta name="color-scheme" content="light only" />
     <meta name="description" content="投資家ディベート型 銘柄選定ブラウザアプリ" />
     <title>Invest Coach</title>
+    <link rel="canonical" href="https://invest-coach.miupa.jp/" />
+
+    <!-- OGP -->
+    <meta property="og:title" content="Invest Coach" />
+    <meta property="og:description" content="投資家ディベート型 銘柄選定ブラウザアプリ" />
+    <meta property="og:url" content="https://invest-coach.miupa.jp/" />
+    <meta property="og:image" content="https://raw.githubusercontent.com/MiUPa/invest_coach/main/picture/invest_coach_(iPhone%20SE).png" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Invest Coach" />
+    <meta property="og:locale" content="ja_JP" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Invest Coach" />
+    <meta name="twitter:description" content="投資家ディベート型 銘柄選定ブラウザアプリ" />
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/MiUPa/invest_coach/main/picture/invest_coach_(iPhone%20SE).png" />
+
+    <!-- 構造化データ -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "WebApplication",
+        "name": "Invest Coach",
+        "url": "https://invest-coach.miupa.jp/",
+        "description": "投資家ディベート型 銘柄選定ブラウザアプリ",
+        "applicationCategory": "FinanceApplication",
+        "operatingSystem": "Web Browser",
+        "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "JPY"
+        },
+        "inLanguage": "ja"
+    }
+    </script>
+
+    <!-- Google tag (gtag.js) -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-3Q0TK9GK8H"></script>
+    <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-3Q0TK9GK8H');
+    </script>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root">
+      <h1>Invest Coach</h1>
+      <p>投資家ディベート型 銘柄選定ブラウザアプリ。投資金額・期間・リスク許容度を入力すると、複数の投資家ペルソナがディベートして銘柄選定の結論を提示します。</p>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
-  </html>
-
-
+</html>

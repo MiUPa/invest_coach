@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://invest-coach.miupa.jp/sitemap.xml
